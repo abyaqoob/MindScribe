@@ -9,7 +9,8 @@ class Settings(BaseSettings):
     HF_TOKEN: str
     EMBEDDING_MODEL_NAME: str = "all-MiniLM-L6-v2"
     LLM_MODEL_NAME: str = "llama-3.3-70b-versatile"
-    GROQ_API_KEY: str
+    GROQ_API_KEY: str | None = None
+    GEMINI_API_KEY: str | None = None
 
     # ── JWT / Auth ─────────────────────────────────────────────────────────
     SECRET_KEY: str = "change-me-in-production-use-a-long-random-string"

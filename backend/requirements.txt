@@ -38,7 +38,7 @@ numpy==2.4.6
 orjson==3.11.9
 packaging==26.2
 pgvector==0.2.5
-psycopg[binary]==3.1.19
+psycopg[binary]==3.2.4
 pyasn1==0.6.3
 pyasn1_modules==0.4.2
 pycparser==3.0

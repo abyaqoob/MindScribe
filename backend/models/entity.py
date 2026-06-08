@@ -2,7 +2,7 @@ import uuid
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship, DeclarativeBase
 from sqlalchemy import ForeignKey, Text, Index, Boolean
-from pgvector.sqlalchemy import VECTOR
+from pgvector.sqlalchemy import Vector
 from typing import List, Optional
 from datetime import datetime, timezone
 
@@ -89,7 +89,7 @@ class NoteChunks(Base):
         ),
     )
     
-    embedding: Mapped[VECTOR] = mapped_column(VECTOR(384)) 
+    embedding: Mapped[Vector] = mapped_column(Vector(384)) 
 
     note_id: Mapped[uuid.UUID] = mapped_column(
         ForeignKey("notes.id", ondelete="CASCADE")
@@ -127,7 +127,7 @@ class Clusters(Base):
     )
     name: Mapped[str] = mapped_column(unique=True)
     description: Mapped[str]
-    cluster_vector: Mapped[VECTOR] = mapped_column(VECTOR(384))
+    cluster_vector: Mapped[Vector] = mapped_column(Vector(384))
 
     
     

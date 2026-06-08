@@ -2,7 +2,13 @@ from sqlalchemy import create_engine, event
 from sqlalchemy.orm import sessionmaker
 from core.config import settings
 
-engine = create_engine(settings.DATABASE_URL, pool_pre_ping=True) # why 2nd parameter ?
+db_url = settings.DATABASE_URL
+if db_url.startswith("postgres://"):
+    db_url = db_url.replace("postgres://", "postgresql+psycopg://", 1)
+elif db_url.startswith("postgresql://"):
+    db_url = db_url.replace("postgresql://", "postgresql+psycopg://", 1)
+
+engine = create_engine(db_url, pool_pre_ping=True) # why 2nd parameter ?
 
 @event.listens_for(engine, "connect")
 def provide_vector_extension(dbapi_connection, connection_record):

@@ -1,4 +1,5 @@
 from langchain_groq import ChatGroq
+from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from core.config import settings
@@ -13,11 +14,12 @@ class ChatService:
     def __init__(self):
         self.output_parser = StrOutputParser()
 
-        self.llm = ChatGroq(
-            model=settings.LLM_MODEL_NAME,
-            api_key=settings.GROQ_API_KEY,
-            temperature=0.7,
-        )
+        if settings.GEMINI_API_KEY:
+            self.llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0.7, api_key=settings.GEMINI_API_KEY)
+        elif settings.GROQ_API_KEY:
+            self.llm = ChatGroq(model=settings.LLM_MODEL_NAME, api_key=settings.GROQ_API_KEY, temperature=0.7)
+        else:
+            raise ValueError("No LLM API keys found!")
 
         self.embedder = embedding_service
 
@@ -64,11 +66,12 @@ class ChatService:
             self._summarization_prompt | self.llm | self.output_parser
         )
 
-        self._critic_llm = ChatGroq(
-            model=settings.LLM_MODEL_NAME,
-            api_key=settings.GROQ_API_KEY,
-            temperature=0.3,
-        )
+        if settings.GEMINI_API_KEY:
+            self._critic_llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0.3, api_key=settings.GEMINI_API_KEY)
+        elif settings.GROQ_API_KEY:
+            self._critic_llm = ChatGroq(model=settings.LLM_MODEL_NAME, api_key=settings.GROQ_API_KEY, temperature=0.3)
+        else:
+            raise ValueError("No LLM API keys found!")
 
         self._critic_prompt = ChatPromptTemplate.from_messages([
             (
@@ -124,11 +127,12 @@ class ChatService:
             self._critic_prompt | self._critic_llm | self.output_parser
         )
 
-        self._autogen_llm = ChatGroq(
-            model=settings.LLM_MODEL_NAME,
-            api_key=settings.GROQ_API_KEY,
-            temperature=0.8,
-        )
+        if settings.GEMINI_API_KEY:
+            self._autogen_llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0.8, api_key=settings.GEMINI_API_KEY)
+        elif settings.GROQ_API_KEY:
+            self._autogen_llm = ChatGroq(model=settings.LLM_MODEL_NAME, api_key=settings.GROQ_API_KEY, temperature=0.8)
+        else:
+            raise ValueError("No LLM API keys found!")
 
         self._autogen_prompt = ChatPromptTemplate.from_messages([
             (

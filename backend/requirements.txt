@@ -28,6 +28,7 @@ langchain-core==1.4.1
 langchain-google-genai==4.2.4
 langchain-groq
 langchain-huggingface
+langchain-text-splitters
 langchain-protocol==0.0.16
 langsmith==0.8.9
 markdown-it-py==4.2.0

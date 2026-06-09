@@ -7,6 +7,8 @@ charset-normalizer==3.4.7
 click==8.4.1
 cryptography==48.0.0
 distro==1.9.0
+bcrypt
+python-jose[cryptography]
 fastapi==0.111.0
 filelock==3.29.1
 filetype==1.2.0

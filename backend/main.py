@@ -9,7 +9,12 @@ from core.config import settings
 # Routers
 from routers import auth, notes, clusters, messages, users
 
+from sqlalchemy import text
+
 Base.metadata.create_all(bind=engine)
+
+with engine.begin() as conn:
+    conn.execute(text("ALTER TABLE clusters DROP CONSTRAINT IF EXISTS clusters_name_key;"))
 
 app = FastAPI(
     title="Mindscribe API",

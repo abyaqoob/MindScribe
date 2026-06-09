@@ -125,7 +125,7 @@ class Clusters(Base):
     user_id: Mapped[uuid.UUID] = mapped_column(
         ForeignKey("users.id", ondelete="CASCADE")
     )
-    name: Mapped[str] = mapped_column(unique=True)
+    name: Mapped[str] = mapped_column(index=True)
     description: Mapped[str]
     cluster_vector: Mapped[Vector] = mapped_column(Vector(384))
 

@@ -15,7 +15,7 @@ class ChatService:
         self.output_parser = StrOutputParser()
 
         if settings.GEMINI_API_KEY:
-            self.llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0.7, api_key=settings.GEMINI_API_KEY)
+            self.llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash-latest", temperature=0.7, api_key=settings.GEMINI_API_KEY)
         elif settings.GROQ_API_KEY:
             self.llm = ChatGroq(model=settings.LLM_MODEL_NAME, api_key=settings.GROQ_API_KEY, temperature=0.7)
         else:
@@ -67,7 +67,7 @@ class ChatService:
         )
 
         if settings.GEMINI_API_KEY:
-            self._critic_llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0.3, api_key=settings.GEMINI_API_KEY)
+            self._critic_llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash-latest", temperature=0.3, api_key=settings.GEMINI_API_KEY)
         elif settings.GROQ_API_KEY:
             self._critic_llm = ChatGroq(model=settings.LLM_MODEL_NAME, api_key=settings.GROQ_API_KEY, temperature=0.3)
         else:
@@ -128,7 +128,7 @@ class ChatService:
         )
 
         if settings.GEMINI_API_KEY:
-            self._autogen_llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0.8, api_key=settings.GEMINI_API_KEY)
+            self._autogen_llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash-latest", temperature=0.8, api_key=settings.GEMINI_API_KEY)
         elif settings.GROQ_API_KEY:
             self._autogen_llm = ChatGroq(model=settings.LLM_MODEL_NAME, api_key=settings.GROQ_API_KEY, temperature=0.8)
         else:

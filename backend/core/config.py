@@ -14,6 +14,7 @@ class Settings(BaseSettings):
     LLM_MODEL_NAME: str = "llama-3.3-70b-versatile"
     GROQ_API_KEY: str | None = None
     GEMINI_API_KEY: str | None = None
+    GEMINI_MODEL_NAME: str = "gemini-1.5-pro"
 
     # CORS
     BACKEND_CORS_ORIGINS: Any = ["http://localhost:5173", "http://localhost:3000"]

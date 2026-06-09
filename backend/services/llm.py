@@ -14,10 +14,10 @@ class ChatService:
     def __init__(self):
         self.output_parser = StrOutputParser()
 
-        if settings.GROQ_API_KEY and len(settings.GROQ_API_KEY) > 10:
+        if settings.GEMINI_API_KEY and len(settings.GEMINI_API_KEY) > 10:
+            self.llm = ChatGoogleGenerativeAI(model=settings.GEMINI_MODEL_NAME, temperature=0.7, api_key=settings.GEMINI_API_KEY)
+        elif settings.GROQ_API_KEY and len(settings.GROQ_API_KEY) > 10:
             self.llm = ChatGroq(model=settings.LLM_MODEL_NAME, api_key=settings.GROQ_API_KEY, temperature=0.7)
-        elif settings.GEMINI_API_KEY and len(settings.GEMINI_API_KEY) > 10:
-            self.llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash-latest", temperature=0.7, api_key=settings.GEMINI_API_KEY)
         else:
             raise ValueError("No LLM API keys found!")
 
@@ -66,10 +66,10 @@ class ChatService:
             self._summarization_prompt | self.llm | self.output_parser
         )
 
-        if settings.GROQ_API_KEY and len(settings.GROQ_API_KEY) > 10:
+        if settings.GEMINI_API_KEY and len(settings.GEMINI_API_KEY) > 10:
+            self._critic_llm = ChatGoogleGenerativeAI(model=settings.GEMINI_MODEL_NAME, temperature=0.3, api_key=settings.GEMINI_API_KEY)
+        elif settings.GROQ_API_KEY and len(settings.GROQ_API_KEY) > 10:
             self._critic_llm = ChatGroq(model=settings.LLM_MODEL_NAME, api_key=settings.GROQ_API_KEY, temperature=0.3)
-        elif settings.GEMINI_API_KEY and len(settings.GEMINI_API_KEY) > 10:
-            self._critic_llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash-latest", temperature=0.3, api_key=settings.GEMINI_API_KEY)
         else:
             raise ValueError("No LLM API keys found!")
 
@@ -127,10 +127,10 @@ class ChatService:
             self._critic_prompt | self._critic_llm | self.output_parser
         )
 
-        if settings.GROQ_API_KEY and len(settings.GROQ_API_KEY) > 10:
+        if settings.GEMINI_API_KEY and len(settings.GEMINI_API_KEY) > 10:
+            self._autogen_llm = ChatGoogleGenerativeAI(model=settings.GEMINI_MODEL_NAME, temperature=0.8, api_key=settings.GEMINI_API_KEY)
+        elif settings.GROQ_API_KEY and len(settings.GROQ_API_KEY) > 10:
             self._autogen_llm = ChatGroq(model=settings.LLM_MODEL_NAME, api_key=settings.GROQ_API_KEY, temperature=0.8)
-        elif settings.GEMINI_API_KEY and len(settings.GEMINI_API_KEY) > 10:
-            self._autogen_llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash-latest", temperature=0.8, api_key=settings.GEMINI_API_KEY)
         else:
             raise ValueError("No LLM API keys found!")
 

@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     GEMINI_API_KEY: str | None = None
 
     # CORS
-    BACKEND_CORS_ORIGINS: list[str] = ["http://localhost:5173", "http://localhost:3000"]
+    BACKEND_CORS_ORIGINS: Any = ["http://localhost:5173", "http://localhost:3000"]
 
     @field_validator("BACKEND_CORS_ORIGINS", mode="before")
     @classmethod

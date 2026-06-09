@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from db.session import engine
 from models.entity import Base
+from core.config import settings
 
 # Routers
 from routers import auth, notes, clusters, messages, users
@@ -19,7 +20,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],   # Vite dev server
+    allow_origins=settings.BACKEND_CORS_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
